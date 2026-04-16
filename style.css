@@ -1,3 +1,4 @@
+/* RESET & GLOBAL */
 * {
   margin: 0;
   padding: 0;
@@ -5,7 +6,7 @@
 }
 
 body {
-  font-family: 'Inter', sans-serif;
+  font-family: 'Cabinet Grotesk', 'Inter', sans-serif;
   background-color: #fefcf8;
   color: #1e1e1e;
   line-height: 1.5;
@@ -17,8 +18,96 @@ body {
   margin: 0 auto;
   padding: 0 24px;
 }
+/* ===== DARK MODE VARIABLES & STYLES ===== */
+:root {
+  --bg-primary: #fefcf8;
+  --bg-secondary: #ffffff;
+  --text-primary: #1e1e1e;
+  --text-secondary: #2c2c2c;
+  --border-light: #f0ebe3;
+  --card-bg: #ffffff;
+  --footer-bg: #111;
+  --footer-text: #ddd;
+  --input-bg: #ffffff;
+  --btn-outline-border: #ddd;
+  --newsletter-bg: #f5efe7;
+}
 
-/* HEADER */
+body.dark {
+  --bg-primary: #121212;
+  --bg-secondary: #1e1e1e;
+  --text-primary: #f0f0f0;
+  --text-secondary: #cccccc;
+  --border-light: #2a2a2a;
+  --card-bg: #1e1e1e;
+  --footer-bg: #0a0a0a;
+  --footer-text: #aaaaaa;
+  --input-bg: #2a2a2a;
+  --btn-outline-border: #444;
+  --newsletter-bg: #1a1a1a;
+}
+
+/* Apply variables */
+body {
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.main-header {
+  background: var(--bg-secondary);
+  border-bottom-color: var(--border-light);
+}
+
+.category-card, .product-card {
+  background: var(--card-bg);
+  box-shadow: 0 6px 14px rgba(0,0,0,0.05);
+}
+
+.newsletter {
+  background: var(--newsletter-bg);
+}
+
+.newsletter-form input {
+  background: var(--input-bg);
+  color: var(--text-primary);
+  border: 1px solid var(--border-light);
+}
+
+.main-footer {
+  background: var(--footer-bg);
+  color: var(--footer-text);
+}
+
+.footer-col a, .social-icons a {
+  color: var(--footer-text);
+}
+
+.btn-outline {
+  border-color: var(--btn-outline-border);
+  color: var(--text-primary);
+}
+
+.btn-outline:hover {
+  background: var(--text-primary);
+  color: var(--bg-primary);
+  border-color: var(--text-primary);
+}
+
+/* Theme toggle icon */
+.theme-toggle {
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+.theme-toggle:hover {
+  transform: scale(1.1);
+}
+body.dark .theme-toggle .fa-moon:before {
+  content: "\f185"; /* sun icon in dark mode */
+}
+/* We'll handle icon swap with JS, but this is a fallback */
+
+/* HEADER – MODERN FONT FOR BRAND NAME */
 .main-header {
   background: #ffffff;
   box-shadow: 0 2px 20px rgba(0,0,0,0.02);
@@ -52,15 +141,225 @@ body {
 }
 
 .logo-photo img:hover { transform: scale(1.05); }
+@media (max-width: 768px) {
+  .main-nav ul {
+    display: none;
+    flex-direction: column;
+    background: var(--bg-secondary);
+    position: absolute;
+    top: 80px;
+    left: 0;
+    width: 100%;
+    padding: 24px;
+    gap: 20px;
+    box-shadow: 0 20px 30px rgba(0,0,0,0.05);
+    border-radius: 0 0 28px 28px;
+    z-index: 99;
+  }
+  .main-nav ul.show-mobile {
+    display: flex;
+  }
+  .mobile-menu-toggle {
+    display: block;
+  }
+  /* Show theme toggle on mobile, hide search and bag (optional) */
+  .header-icons {
+    display: flex;
+    gap: 16px;
+    align-items: center;
+  }
+  /* You can keep search/bag hidden on mobile if you want, or show them */
+  .header-icons .fa-search,
+  .header-icons .fa-shopping-bag {
+    display: none;  /* hides search + bag on mobile to save space */
+  }
+  .header-icons .theme-toggle {
+    display: flex;
+    font-size: 1.3rem;
+  }
+  .carousel-slide img {
+    height: 380px;
+  }
+  .section-title {
+    font-size: 1.8rem;
+  }
+  .category-grid, .product-grid {
+    gap: 20px;
+  }
+  .newsletter {
+    margin: 40px 16px;
+  }
+  .brand-name {
+    font-size: 1.5rem;
+  }
+}
+/* Make theme toggle easier to tap on mobile */
+.theme-toggle {
+  cursor: pointer;
+  transition: transform 0.2s;
+  padding: 8px;
+  font-size: 1.2rem;
+}
 
+@media (max-width: 768px) {
+  .theme-toggle {
+    padding: 10px;
+    font-size: 1.4rem;
+  }
+}
+ /* ===== FEATURED FADE CAROUSEL (MINIMALIST MODERN) ===== */
+    .featured-categories {
+      padding: 60px 0 40px;
+      background: #fafaf9;
+    }
+    .section-title {
+      font-size: 1.8rem;
+      font-weight: 500;
+      letter-spacing: -0.3px;
+      text-align: center;
+      margin-bottom: 48px;
+      color: #2b2b2b;
+      position: relative;
+    }
+    .section-title:after {
+      content: '';
+      display: block;
+      width: 60px;
+      height: 2px;
+      background: #c7ad7a;
+      margin: 12px auto 0;
+    }
+    .fade-carousel-wrapper {
+      position: relative;
+      max-width: 1100px;
+      margin: 0 auto;
+      border-radius: 28px;
+      overflow: hidden;
+      box-shadow: 0 20px 35px -12px rgba(0,0,0,0.08);
+      background: #ffffff;
+    }
+    .fade-carousel-container {
+      position: relative;
+      height: 540px;
+      background: #f6f4f0;
+    }
+    @media (max-width: 768px) {
+      .fade-carousel-container { height: 460px; }
+    }
+    .fade-slide {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      opacity: 0;
+      transition: opacity 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      visibility: hidden;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      background: #fff;
+    }
+    .fade-slide.active {
+      opacity: 1;
+      visibility: visible;
+      z-index: 2;
+    }
+    .slide-image {
+      width: 100%;
+      height: 70%;
+      overflow: hidden;
+    }
+    .slide-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s ease;
+    }
+    .fade-slide:hover .slide-image img {
+      transform: scale(1.02);
+    }
+    .slide-caption {
+      padding: 24px 20px 20px;
+      background: white;
+      width: 50%;
+    }
+    .slide-caption h3 {
+      font-size: 1.7rem;
+      font-weight: 500;
+      letter-spacing: -0.2px;
+      color: #ffffff;
+      margin-bottom: 8px;
+    }
+    .slide-caption p {
+      font-size: 0.95rem;
+      color: #ebe719;
+      font-weight: 400;
+    }
+    .fade-carousel-btn {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: rgba(255,255,255,0.9);
+      border: none;
+      width: 42px;
+      height: 42px;
+      border-radius: 100px;
+      font-size: 1.2rem;
+      cursor: pointer;
+      backdrop-filter: blur(6px);
+      z-index: 20;
+      transition: all 0.2s;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+      color: #2c2c2c;
+    }
+    .fade-carousel-btn:hover {
+      background: white;
+      box-shadow: 0 6px 16px rgba(0,0,0,0.1);
+      color: #a57c4c;
+    }
+    .fade-prev {
+      left: 16px;
+    }
+    .fade-next {
+      right: 16px;
+    }
+    .fade-dots {
+      position: absolute;
+      bottom: 16px;
+      left: 0;
+      right: 0;
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      z-index: 15;
+    }
+    .fade-dot {
+      width: 8px;
+      height: 8px;
+      background: #cccbc8;
+      border-radius: 20px;
+      cursor: pointer;
+      transition: all 0.25s;
+    }
+    .fade-dot.active {
+      background: #a57c4c;
+      width: 28px;
+    }
+/* 🔥 MODERN BRAND NAME STYLING (like Mango Grotesque) */
 .brand-name {
-  font-weight: 700;
-  font-size: 1.5rem;
-  letter-spacing: -0.02em;
+  font-family: 'Cabinet Grotesk', 'Inter', sans-serif;
+  font-weight: 800;
+  font-size: 1.9rem;
+  letter-spacing: -0.03em;
   background: linear-gradient(135deg, #1e1e1e 0%, #3a2c1f 100%);
   background-clip: text;
   -webkit-background-clip: text;
   color: transparent;
+  text-transform: uppercase;
+  transition: 0.2s;
 }
 
 .main-nav ul {
@@ -103,7 +402,7 @@ body {
 .dot { width: 10px; height: 10px; background: rgba(255,255,255,0.5); border-radius: 50%; cursor: pointer; transition: 0.2s; }
 .dot.active { background: white; width: 28px; border-radius: 12px; }
 
-/* Sections */
+/* SECTIONS */
 .section-title { font-size: 2rem; font-weight: 600; margin-bottom: 32px; letter-spacing: -0.01em; text-align: center; }
 .category-grid, .product-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 32px; margin: 48px 0; }
 .category-card { background: #fff; border-radius: 28px; overflow: hidden; transition: all 0.3s ease; box-shadow: 0 6px 14px rgba(0,0,0,0.02); }
@@ -124,7 +423,7 @@ body {
 .newsletter-form input { padding: 14px 20px; border-radius: 60px; border: none; width: 280px; background: white; }
 .newsletter-form button { background: #1e1e1e; color: white; border: none; padding: 14px 32px; border-radius: 60px; font-weight: 600; cursor: pointer; transition: 0.2s; }
 
-/* Footer */
+/* FOOTER */
 .main-footer { background: #111; color: #ddd; padding: 48px 0 24px; margin-top: 40px; }
 .footer-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px,1fr)); gap: 40px; }
 .footer-col ul { list-style: none; }
@@ -132,14 +431,14 @@ body {
 .social-icons a { color: #ccc; margin-right: 16px; font-size: 1.3rem; }
 .footer-bottom { text-align: center; border-top: 1px solid #2a2a2a; padding-top: 24px; margin-top: 32px; }
 
-/* Animations */
+/* ANIMATIONS */
 .fade-up { opacity: 0; transform: translateY(30px); animation: fadeUp 0.8s forwards; }
 @keyframes fadeUp { to { opacity: 1; transform: translateY(0); } }
 .delay-1 { animation-delay: 0.1s; }
 .delay-2 { animation-delay: 0.2s; }
 .delay-3 { animation-delay: 0.35s; }
 
-/* Responsive */
+/* RESPONSIVE */
 @media (max-width: 768px) {
   .main-nav ul { display: none; flex-direction: column; background: white; position: absolute; top: 80px; left: 0; width: 100%; padding: 24px; gap: 20px; box-shadow: 0 20px 30px rgba(0,0,0,0.05); border-radius: 0 0 28px 28px; z-index: 99; }
   .main-nav ul.show-mobile { display: flex; }
@@ -149,9 +448,20 @@ body {
   .section-title { font-size: 1.8rem; }
   .category-grid, .product-grid { gap: 20px; }
   .newsletter { margin: 40px 16px; }
+  .brand-name { font-size: 1.5rem; }
 }
 
 @media (max-width: 480px) {
   .carousel-slide img { height: 280px; }
   .brand-name { font-size: 1.2rem; }
 }
+
+/* ADDITIONAL PAGE STYLES */
+.page-header { background: #f5efe7; padding: 60px 0; text-align: center; margin-bottom: 40px; }
+.about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: center; }
+.about-grid img { width: 100%; border-radius: 28px; }
+.contact-wrapper { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; }
+.contact-info i { width: 30px; color: #c7a575; }
+.contact-form input, .contact-form textarea { width: 100%; padding: 14px; margin-bottom: 20px; border: 1px solid #e0e0e0; border-radius: 16px; }
+.btn-primary { background: #1e1e1e; color: white; border: none; padding: 14px 28px; border-radius: 40px; font-weight: 600; cursor: pointer; }
+@media (max-width: 768px) { .about-grid, .contact-wrapper { grid-template-columns: 1fr; } }

@@ -4,9 +4,52 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <title>K&C Closet | Home</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
+  <!-- Modern Font: Cabinet Grotesque (similar to Mango Grotesque) -->
+  <link href="https://api.fontshare.com/v2/css?f[]=cabinet-grotesk@800,500,700,400&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
   <link rel="stylesheet" href="style.css">
+<style>
+/* INFINITE CAROUSEL FOR BRAND NAME */
+    .brand-carousel {
+      overflow: hidden;
+      white-space: nowrap;
+      width: auto;
+      display: inline-block;
+      position: relative;
+    }
+    .brand-scroll {
+      display: inline-block;
+      animation: scrollBrand 12s linear infinite;
+      font-family: 'Inter', sans-serif;
+      font-weight: 700;
+      font-size: 1.9rem;
+      letter-spacing: -0.03em;
+      background: linear-gradient(135deg, #1e1e1e 0%, #3a2c1f 100%);
+      background-clip: text;
+      -webkit-background-clip: text;
+      color: transparent;
+      text-transform: uppercase;
+    }
+    .brand-scroll span {
+      margin-right: 2rem;
+    }
+    @keyframes scrollBrand {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+    /* adjust logo area to fit carousel */
+    .logo-area {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      overflow: hidden;
+      max-width: 280px;
+    }
+    @media (max-width: 768px) {
+      .brand-scroll { font-size: 1.3rem; }
+      .logo-area { max-width: 220px; }
+    }
+</style>
 </head>
 <body>
 
@@ -15,8 +58,16 @@
     <div class="logo-area">
       <div class="logo-photo">
   <img src="profile.jpg" alt="K&C Closet Logo">
-  </div>
-      <span class="brand-name">K&C CLOSET</span>
+    </div>
+      <!-- Infinite carousel brand name -->
+      <div class="brand-carousel">
+        <div class="brand-scroll">
+          <span>K&C CLOSET ✦</span>
+          <span>K&C CLOSET ✦</span>
+          <span>K&C CLOSET ✦</span>
+          <span>K&C CLOSET ✦</span>
+        </div>
+        </div>
     </div>
     <nav class="main-nav">
       <ul>
@@ -29,6 +80,8 @@
     <div class="header-icons">
       <i class="fas fa-search"></i>
       <i class="fas fa-shopping-bag"></i>
+       <!-- Dark/Light mode toggle button -->
+      <i class="fas fa-moon theme-toggle" id="themeToggle"></i>
     </div>
     <div class="mobile-menu-toggle">
       <i class="fas fa-bars"></i>
@@ -36,6 +89,7 @@
   </div>
 </header>
 
+<!-- CAROUSEL SECTION -->
 <section class="hero-carousel">
   <div class="carousel-container">
     <div class="carousel-slides" id="carouselSlides"></div>
@@ -45,39 +99,22 @@
   </div>
 </section>
 
+<!-- FEATURED CATEGORIES: MINIMALIST MODERN FADE CAROUSEL -->
 <section class="featured-categories">
   <div class="container">
-    <h2 class="section-title fade-up">Prices Ranges From 40-70 Pesos</h2>
-    <div class="category-grid">
-      <div class="category-card fade-up delay-1">
-        <img src="cloth1.jpg" alt="Streetwear">
-        <h3>decluttered/pre-loved</h3>
-        <p>Urban essentials</p>
+    <h2 class="section-title fade-up">Featured Categories</h2>
+    <div class="fade-carousel-wrapper fade-up delay-1">
+      <div class="fade-carousel-container" id="fadeCarouselContainer">
+        <!-- dynamic slides injected via JS -->
       </div>
-      <div class="category-card fade-up delay-2">
-        <img src="cloth2.jpg" alt="Evenwear">
-        <h3>Evening Edit</h3>
-        <p>Glamorous silhouettes</p>
-      </div>
-      <div class="category-card fade-up delay-3">
-        <img src="cloth3.jpg" alt="Casual">
-        <h3>Minimal Chic</h3>
-        <p>Effortless daily style</p>
-      </div>
-      <div class="category-card fade-up delay-3">
-        <img src="cloth4.jpg" alt="Casual">
-        <h3>Minimal Chic</h3>
-        <p>Effortless daily style</p>
-      </div>
-      <div class="category-card fade-up delay-3">
-        <img src="cloth5.jpg" alt="Casual">
-        <h3>Minimal Chic</h3>
-        <p>Effortless daily style</p>
-      </div>
+      <button class="fade-carousel-btn fade-prev" id="fadePrevBtn"><i class="fas fa-chevron-left"></i></button>
+      <button class="fade-carousel-btn fade-next" id="fadeNextBtn"><i class="fas fa-chevron-right"></i></button>
+      <div class="fade-dots" id="fadeDots"></div>
     </div>
   </div>
 </section>
 
+<!-- NEW ARRIVALS -->
 <section class="new-arrivals">
   <div class="container">
     <div class="arrivals-header">
@@ -86,33 +123,34 @@
     </div>
     <div class="product-grid preview-grid">
       <div class="product-card fade-up delay-1">
-        <div class="product-img"><img src="https://images.unsplash.com/photo-1541099649105-f69ad21f3246?w=500&auto=format" alt="Oversized Blazer"></div>
-        <h4>Oversized Wool Blazer</h4>
-        <p class="price">$189</p>
+        <div class="product-img"><img src="cloth1.jpg" alt="Oversized Blazer"></div>
+        <h4>Green Croptop</h4>
+        <p class="price">₱50</p>
         <button class="btn-outline">Shop Now</button>
       </div>
       <div class="product-card fade-up delay-2">
-        <div class="product-img"><img src="https://images.unsplash.com/photo-1595777457583-95e059d581b8?w=500&auto=format" alt="Leather Tote"></div>
-        <h4>Asymmetric Leather Tote</h4>
-        <p class="price">$249</p>
+        <div class="product-img"><img src="cloth2.jpg" alt="Leather Tote"></div>
+        <h4>Green Tube</h4>
+        <p class="price">₱40</p>
         <button class="btn-outline">Shop Now</button>
       </div>
       <div class="product-card fade-up delay-3">
-        <div class="product-img"><img src="https://images.unsplash.com/photo-1564257631407-4deb1f99d992?w=500&auto=format" alt="Silk Slip Dress"></div>
-        <h4>Silk Satin Slip Dress</h4>
-        <p class="price">$159</p>
+        <div class="product-img"><img src="cloth3.jpg" alt="Silk Slip Dress"></div>
+        <h4>Bikini Top</h4>
+        <p class="price">₱40</p>
         <button class="btn-outline">Shop Now</button>
       </div>
     </div>
   </div>
 </section>
 
+<!-- NEWSLETTER -->
 <section class="newsletter">
   <div class="container">
     <div class="newsletter-content fade-up">
       <i class="fas fa-envelope-open-text"></i>
       <h3>Join the K&C Inner Circle</h3>
-      <p>Get 15% off your first order + exclusive access</p>
+      <p>Message us for orders or inquiries ✿📩</p>
       <form class="newsletter-form">
         <input type="email" placeholder="Your email address" required>
         <button type="submit">Subscribe</button>
