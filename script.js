@@ -177,9 +177,9 @@ document.addEventListener('DOMContentLoaded', () => {
     // 2. FEATURED FADE CAROUSEL (minimalist & modern)
     // ------------------------------
     const categoriesData = [
-      { img: "cloth1.jpg", title: "decluttered/pre-loved", desc: "Urban essentials · from 40₱" },
-      { img: "cloth2.jpg", title: "decluttered/pre-loved", desc: "Glamorous silhouettes · from 55₱" },
-      { img: "cloth3.jpg", title: "decluttered/pre-loved", desc: "Effortless daily style · from 45₱" },
+      { img: "cloth1.jpg", title: "decluttered/pre-loved", desc: "Urban essentials · from ₱40" },
+      { img: "cloth2.jpg", title: "decluttered/pre-loved", desc: "Glamorous silhouettes · from ₱55" },
+      { img: "cloth3.jpg", title: "decluttered/pre-loved", desc: "Effortless daily style · from ₱45" },
       { img: "cloth4.jpg", title: "decluttered/pre-loved", desc: "Clean & versatile staples" },
       { img: "cloth5.jpg", title: "decluttered/pre-loved", desc: "Warm & relaxed textures" }
     ];
@@ -288,4 +288,64 @@ function updateFadeDots() {
         this.src = 'https://images.unsplash.com/photo-1594938298603-c8148c4dae35?w=600&auto=format';
       });
     });
-    
+    // script.js
+async function loadFacebookGallery() {
+    const galleryContainer = document.getElementById('facebookGallery');
+    if (!galleryContainer) return;
+
+    try {
+        // 1. Fetch the data from your backend script
+        const response = await fetch('/fetch_facebook_posts.php'); // Adjust path if needed
+        const data = await response.json();
+
+        // 2. Check if we have posts
+        if (!data.data || data.data.length === 0) {
+            galleryContainer.innerHTML = '<p>No posts found.</p>';
+            return;
+        }
+
+        // 3. Clear loading spinner
+        galleryContainer.innerHTML = '';
+
+        // 4. Loop through each post and create HTML
+        data.data.forEach(post => {
+            // Skip posts without images (optional)
+            if (!post.full_picture) return;
+
+            const postElement = document.createElement('div');
+            postElement.className = 'facebook-post';
+
+            // Format the date
+            const postDate = new Date(post.created_time);
+            const formattedDate = postDate.toLocaleDateString('en-US', { 
+                year: 'numeric', 
+                month: 'long', 
+                day: 'numeric' 
+            });
+
+            // Truncate long messages
+            let message = post.message || '';
+            if (message.length > 120) {
+                message = message.substring(0, 120) + '...';
+            }
+
+            postElement.innerHTML = `
+                <img src="${post.full_picture}" alt="Facebook post image">
+                <div class="post-caption">
+                    <div class="post-date">${formattedDate}</div>
+                    <p>${message.replace(/\n/g, '<br>')}</p>
+                    <a href="${post.permalink_url}" target="_blank" rel="noopener noreferrer" class="read-more">View on Facebook →</a>
+                </div>
+            `;
+
+            galleryContainer.appendChild(postElement);
+        });
+
+    } catch (error) {
+        console.error('Error loading Facebook gallery:', error);
+        galleryContainer.innerHTML = '<p>Unable to load posts. Please try again later.</p>';
+    }
+}
+
+// Load the gallery when the page is ready
+document.addEventListener('DOMContentLoaded', loadFacebookGallery);
